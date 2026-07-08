@@ -161,9 +161,9 @@ body {
     background: #6a2a3e;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 350px) {
     .calculator {
-        padding: 18px;
+        padding: 12px;
         border-radius: 20px;
         width: 100%;
     }
@@ -179,7 +179,7 @@ body {
     }
 
     .display-input.small {
-        font-size: 28px;
+        font-size: 30px;
     }
 
     .display-input.error {
@@ -196,13 +196,13 @@ body {
     }
 
     .btn {
-        padding: 18px 8px;
-        font-size: 22px;
+        padding: 14px 6px;
+        font-size: 18px;
         border-radius: 12px;
     }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 350px) {
     .calculator {
         padding: 12px;
     }
@@ -216,7 +216,6 @@ body {
         font-size: 32px;
     }
 }
-
 @keyframes buttonPress {
     0% {
         transform: scale(0.95);
