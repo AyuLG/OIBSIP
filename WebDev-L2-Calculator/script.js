@@ -2,11 +2,11 @@ const display = document.getElementById('display');
 const expression = document.getElementById('expression');
 const buttons = document.querySelectorAll('.btn');
 
-let displayValue = '0';     
-let expressionValue = '';       
-let currentNumber = '';        
-let numbers = [];             
-let operators = [];            
+let displayValue = '0';
+let expressionValue = '';
+let currentNumber = '';
+let numbers = [];
+let operators = [];
 let hasResult = false;
 let isNewNumber = true;
 
@@ -24,6 +24,7 @@ function updateDisplay() {
         }
     }
 }
+
 function updateExpression() {
     if (expressionValue) {
         expression.textContent = expressionValue;
@@ -31,6 +32,7 @@ function updateExpression() {
         expression.textContent = '';
     }
 }
+
 function buildExpression() {
     if (numbers.length === 0) {
         expressionValue = displayValue;
@@ -54,6 +56,7 @@ function buildExpression() {
     expressionValue = expr;
     updateExpression();
 }
+
 function inputNumber(value) {
     if (hasResult) {
         resetCalculator();
@@ -76,10 +79,19 @@ function inputNumber(value) {
     }
     displayValue = currentNumber;
     updateDisplay();
-
     buildExpression();
 }
+
 function inputOperator(value) {
+    if (hasResult) {
+        hasResult = false;
+        if (displayValue !== '0') {
+            numbers = [displayValue];
+            operators = [];
+            currentNumber = '';
+            isNewNumber = true;
+        }
+    }
 
     if (currentNumber !== '' && !isNewNumber) {
         numbers.push(currentNumber);
@@ -88,7 +100,6 @@ function inputOperator(value) {
         isNewNumber = true;
         displayValue = '';
     } else if (numbers.length > 0 && currentNumber === '') {
-
         operators[operators.length - 1] = value;
     } else {
         if (displayValue !== '' && displayValue !== '0') {
@@ -102,8 +113,8 @@ function inputOperator(value) {
     buildExpression();
     updateDisplay();
 }
+
 function calculate() {
- 
     if (currentNumber !== '' && !isNewNumber) {
         numbers.push(currentNumber);
         currentNumber = '';
@@ -118,7 +129,7 @@ function calculate() {
     }
 
     const numArray = numbers.map(n => parseFloat(n));
-  
+    
     for (let i = 0; i < operators.length; i++) {
         if (operators[i] === '÷' || operators[i] === '%') {
             if (numArray[i + 1] === 0) {
@@ -132,6 +143,7 @@ function calculate() {
             }
         }
     }
+    
     let resultArray = [...numArray];
     let opArray = [...operators];
     let i = 0;
@@ -143,25 +155,37 @@ function calculate() {
             const right = resultArray[i + 1];
             
             switch (opArray[i]) {
-                case '×': result = left * right; break;
-                case '÷': result = left / right; break;
-                case '%': result = left % right; break;
-                default: result = right;
+                case '×': 
+                    result = left * right; 
+                    break;
+                case '÷': 
+                    result = left / right; 
+                    break;
+                case '%': 
+                    result = left % right; 
+                    break;
+                default: 
+                    result = right;
             }
             
             resultArray.splice(i, 2, result);
             opArray.splice(i, 1);
-        
         } else {
             i++;
         }
     }
+    
     let finalResult = resultArray[0];
     for (let i = 0; i < opArray.length; i++) {
         switch (opArray[i]) {
-            case '+': finalResult += resultArray[i + 1]; break;
-            case '−': finalResult -= resultArray[i + 1]; break;
-            default: break;
+            case '+': 
+                finalResult += resultArray[i + 1]; 
+                break;
+            case '−': 
+                finalResult -= resultArray[i + 1]; 
+                break;
+            default: 
+                break;
         }
     }
 
@@ -186,6 +210,7 @@ function calculate() {
     currentNumber = '';
     isNewNumber = true;
 }
+
 function formatResult(num) {
     if (Number.isInteger(num)) {
         return num.toString();
@@ -200,6 +225,7 @@ function formatResult(num) {
 
     return result;
 }
+
 function backspace() {
     if (hasResult) {
         resetCalculator();
@@ -222,6 +248,7 @@ function backspace() {
         }
     }
 }
+
 function resetCalculator() {
     displayValue = '0';
     expressionValue = '';
@@ -234,6 +261,7 @@ function resetCalculator() {
     updateDisplay();
     updateExpression();
 }
+
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         const value = button.dataset.value;
@@ -270,6 +298,7 @@ buttons.forEach((button) => {
         }
     });
 });
+
 document.addEventListener('keydown', (event) => {
     const key = event.key;
 
@@ -318,11 +347,3 @@ document.addEventListener('keydown', (event) => {
         return;
     }
 });
-
-document.addEventListener('keydown', (event) => {
-    if (['Enter', '=', 'Backspace', 'Escape', 'Delete'].includes(event.key)) {
-        event.preventDefault();
-    }
-});
-resetCalculator();
-
