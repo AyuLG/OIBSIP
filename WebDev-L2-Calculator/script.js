@@ -86,10 +86,15 @@ function inputOperator(value) {
     if (hasResult) {
         hasResult = false;
         if (displayValue !== '0') {
+         
             numbers = [displayValue];
-            operators = [];
+            operators = [value];  
             currentNumber = '';
             isNewNumber = true;
+            displayValue = '';
+            buildExpression();
+            updateDisplay();
+            return;
         }
     }
 
@@ -100,6 +105,7 @@ function inputOperator(value) {
         isNewNumber = true;
         displayValue = '';
     } else if (numbers.length > 0 && currentNumber === '') {
+      
         operators[operators.length - 1] = value;
     } else {
         if (displayValue !== '' && displayValue !== '0') {
@@ -130,6 +136,7 @@ function calculate() {
 
     const numArray = numbers.map(n => parseFloat(n));
     
+    // Check for division by zero
     for (let i = 0; i < operators.length; i++) {
         if (operators[i] === '÷' || operators[i] === '%') {
             if (numArray[i + 1] === 0) {
@@ -174,7 +181,7 @@ function calculate() {
             i++;
         }
     }
-    
+   
     let finalResult = resultArray[0];
     for (let i = 0; i < opArray.length; i++) {
         switch (opArray[i]) {
@@ -205,10 +212,6 @@ function calculate() {
     updateDisplay();
     hasResult = true;
 
-    numbers = [];
-    operators = [];
-    currentNumber = '';
-    isNewNumber = true;
 }
 
 function formatResult(num) {
