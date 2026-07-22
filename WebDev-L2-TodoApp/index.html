@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App | AyuLG</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="app">
+            <header>
+                <h1><i class="fas fa-check-circle"></i> To-Do List</h1>
+                <p>Stay organized and get things done</p>
+            </header>
+
+            <div class="add-task">
+                <input type="text" id="taskInput" placeholder="Write a new task..." maxlength="100" />
+                <button id="addBtn"><i class="fas fa-plus"></i> Add</button>
+            </div>
+            <small><i class="fas fa-info-circle"></i> Press <kbd>Enter</kbd> to add</small>
+
+            <div class="lists">
+                <div class="list pending">
+                    <div class="list-header">
+                        <h2><i class="fas fa-hourglass-half"></i> Pending</h2>
+                        <span id="pendingCount">0 tasks</span>
+                    </div>
+                    <ul id="pendingTasks"></ul>
+                </div>
+
+                <div class="list completed">
+                    <div class="list-header">
+                        <h2><i class="fas fa-check-circle"></i> Completed</h2>
+                        <span id="completedCount">0 tasks</span>
+                    </div>
+                    <ul id="completedTasks"></ul>
+                </div>
+            </div>
+
+            <footer>
+                <p><i class="fas fa-save"></i> Auto-saved</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
